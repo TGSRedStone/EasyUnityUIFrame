@@ -532,6 +532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 127468021114794906}
+  - component: {fileID: 7637904013304707373}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -562,6 +563,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &7637904013304707373
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127468021114794907}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &127468021125620542
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +587,7 @@ GameObject:
   - component: {fileID: 127468021125620539}
   - component: {fileID: 127468021125620540}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

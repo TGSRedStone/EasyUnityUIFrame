@@ -25,9 +25,25 @@ namespace EasyUIFrame.Frame
                 Debug.LogWarning($"未能获取{go}身上的{typeof(T)}组件自动添加了一个，请检查此问题");
                 return go.AddComponent<T>();
             }
-            
-            Debug.LogError($"未能获取{go}所需的{typeof(T)}组件");
-            return null;
         }
+        
+        public T AddOrGetComponentInChild<T>(GameObject go,string name) where T : Component 
+        {
+            Transform[] transforms = go.GetComponentsInChildren<Transform>();
+            
+            foreach (Transform transform in transforms) 
+            {
+                if (transform.name == name)  
+                {
+                    if (transform.TryGetComponent(typeof(T), out var tra))
+                    {
+                        return tra as T;
+                    }
+                }
+            }
+
+            Debug.LogWarning($"{go.name}中没找到{name}物体！");
+            return null;
+        } 
     }
 }

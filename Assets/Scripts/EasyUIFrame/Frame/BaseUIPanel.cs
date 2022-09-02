@@ -4,13 +4,13 @@ namespace EasyUIFrame.Frame
 {
     public abstract class BaseUIPanel
     {
-        public UIType uiType;
+        public UIType UIType;
 
-        public GameObject go;
+        public GameObject GO;
 
         protected BaseUIPanel(UIType uiType)
         {
-            this.uiType = uiType;
+            this.UIType = uiType;
         }
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace EasyUIFrame.Frame
         /// </summary>
         public virtual void OnCreate()
         {
-            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(go).interactable = true;
+            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(GO).interactable = true;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace EasyUIFrame.Frame
         /// </summary>
         public virtual void OnOpen()
         {
-            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(go).interactable = true;
+            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(GO).interactable = true;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace EasyUIFrame.Frame
         /// </summary>
         public virtual void OnClose()
         {
-            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(go).interactable = false;
+            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(GO).interactable = false;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace EasyUIFrame.Frame
         /// </summary>
         public virtual void OnDestory()
         {
-            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(go).interactable = false;
+            UIHelper.GetInstance().AddOrGetComponent<CanvasGroup>(GO).interactable = false;
         }
         
     }

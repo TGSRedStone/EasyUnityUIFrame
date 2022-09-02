@@ -5,11 +5,12 @@ namespace EasyUIFrame.Frame
 {
     public class UIManager : Singleton<UIManager>
     {
-        public Stack<BaseUIPanel> uiStack;
-        public Dictionary<string, GameObject> uiObjectsDict;
         //TODO: 增加多Canvas支持
-        public Canvas Canvas;
+        public Canvas canvas;
 
+        private Stack<BaseUIPanel> uiStack;
+        private Dictionary<string, GameObject> uiObjectsDict;
+        
         public void OnInit()
         {
             uiStack = new Stack<BaseUIPanel>();
@@ -21,7 +22,7 @@ namespace EasyUIFrame.Frame
         /// </summary>
         /// <param name="uiType"></param>
         /// <returns></returns>
-        public GameObject LoadGameObject(UIType uiType)
+        private GameObject LoadGameObject(UIType uiType)
         {
             if (uiObjectsDict.ContainsKey(uiType.Name))
             {
@@ -29,7 +30,7 @@ namespace EasyUIFrame.Frame
             }
             else
             {
-                GameObject uiObj = GameObject.Instantiate(Resources.Load<GameObject>(uiType.Path), Canvas.transform);
+                GameObject uiObj = Instantiate(Resources.Load<GameObject>(uiType.Path), canvas.transform);
                 return uiObj;
             }
         }
@@ -40,8 +41,14 @@ namespace EasyUIFrame.Frame
         /// <param name="baseUIPanel"></param>
         public void Push(BaseUIPanel baseUIPanel)
         {
-            GameObject pushObj = LoadGameObject(baseUIPanel.uiType);
-            baseUIPanel.go = pushObj;
+            if (uiStack.Count > 0)
+            {
+                uiStack.Peek().OnClose();
+            }
+            
+            GameObject pushObj = LoadGameObject(baseUIPanel.UIType);
+            uiObjectsDict.Add(baseUIPanel.UIType.Name, pushObj);
+            baseUIPanel.GO = pushObj;
             
             //栈中没有对象时可直接入栈
             if (uiStack.Count == 0)
@@ -51,7 +58,7 @@ namespace EasyUIFrame.Frame
             else
             {
                 //防止点击过快导致多次将同一对象入栈
-                if (uiStack.Peek().uiType.Name != baseUIPanel.uiType.Name)
+                if (uiStack.Peek().UIType.Name != baseUIPanel.UIType.Name)
                 {
                     uiStack.Push(baseUIPanel);
                 }
@@ -69,9 +76,14 @@ namespace EasyUIFrame.Frame
             {
                 uiStack.Peek().OnClose();
                 uiStack.Peek().OnDestory();
-                Destroy(uiObjectsDict[uiStack.Peek().uiType.Name]);
-                uiObjectsDict.Remove(uiStack.Peek().uiType.Name);
+                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name]);
+                uiObjectsDict.Remove(uiStack.Peek().UIType.Name);
                 uiStack.Pop();
+            }
+
+            if (uiStack.Count > 0)
+            {
+                uiStack.Peek().OnOpen();
             }
         }
 
@@ -82,7 +94,11 @@ namespace EasyUIFrame.Frame
         {
             for (int i = 0; i < uiStack.Count; i++)
             {
-                Pop();
+                uiStack.Peek().OnClose();
+                uiStack.Peek().OnDestory();
+                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name]);
+                uiObjectsDict.Remove(uiStack.Peek().UIType.Name);
+                uiStack.Pop();
             }
         }
     }

@@ -1,20 +1,19 @@
-﻿using System;
-using EasyUIFrame.Frame;
-using UnityEngine;
+﻿using EasyUIFrame.Frame;
+using UnityEditor;
 using UnityEngine.UI;
 
 namespace EasyUIFrame.GamePlay
 {
     public class MainMenuPanel : BaseUIPanel
     {
-        private static readonly string path = "Prefab/MainMenuPanel";
-        private static readonly string name = "MainMenuPanel";
-        private static UIType uiType = new UIType(path, name);
-
-        public Button startButton;
-        public Button settingButton;
-        public Button exitButton;
-        public Image backGround;
+        public Button StartButton;
+        public Button SettingButton;
+        public Button ExitButton;
+        public Image BackGround;
+        
+        private static readonly string Path = "Prefab/MainMenuPanel";
+        private static readonly string Name = "MainMenuPanel";
+        private static UIType uiType = new UIType(Path, Name);
         
         public MainMenuPanel() : base(uiType)
         {
@@ -24,7 +23,28 @@ namespace EasyUIFrame.GamePlay
         public override void OnCreate()
         {
             base.OnCreate();
-            backGround.color = Color.green;
+            BackGround = UIHelper.GetInstance().AddOrGetComponentInChild<Image>(GO, "BackGround");
+            StartButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "StartButton");
+            SettingButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "SettingButton");
+            ExitButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "ExitButton");
+            
+            SettingButton.onClick.AddListener(OpenSettingPanel);
+            ExitButton.onClick.AddListener(ExitMainMenuPanel);
         }
+
+        private void OpenSettingPanel()
+        {
+            UIManager.Instance.Push(new SettingMenuPanel());
+        }
+
+        private void ExitMainMenuPanel()
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();      
+#endif
+        }
+        
     }
 }
