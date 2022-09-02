@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EasyUIFrame.Frame
+namespace EasyUIFrame.Frame.UI
 {
     public class UIManager : Singleton<UIManager>
     {
@@ -9,12 +9,12 @@ namespace EasyUIFrame.Frame
         public Canvas canvas;
 
         private Stack<BaseUIPanel> uiStack;
-        private Dictionary<string, GameObject> uiObjectsDict;
+        private Dictionary<string, BaseUIPanel> uiObjectsDict;
         
         public void OnInit()
         {
             uiStack = new Stack<BaseUIPanel>();
-            uiObjectsDict = new Dictionary<string, GameObject>();
+            uiObjectsDict = new Dictionary<string, BaseUIPanel>();
         }
 
         /// <summary>
@@ -22,17 +22,15 @@ namespace EasyUIFrame.Frame
         /// </summary>
         /// <param name="uiType"></param>
         /// <returns></returns>
-        private GameObject LoadGameObject(UIType uiType)
+        private Transform LoadGameObject(UIType uiType)
         {
-            if (uiObjectsDict.ContainsKey(uiType.Name))
+            if (canvas == null)
             {
-                return uiObjectsDict[uiType.Name];
+                Debug.LogError("canvas不存在");
+                return null;
             }
-            else
-            {
-                GameObject uiObj = Instantiate(Resources.Load<GameObject>(uiType.Path), canvas.transform);
-                return uiObj;
-            }
+            var uiObj = Instantiate(Resources.Load<GameObject>(uiType.Path), canvas.transform).transform;
+            return uiObj;
         }
         
         /// <summary>
@@ -43,19 +41,29 @@ namespace EasyUIFrame.Frame
         {
             if (uiStack.Count > 0)
             {
-                uiStack.Peek().OnClose();
+                uiStack.Peek().OnDisable();
             }
-            
-            GameObject pushObj = LoadGameObject(baseUIPanel.UIType);
-            uiObjectsDict.Add(baseUIPanel.UIType.Name, pushObj);
-            baseUIPanel.GO = pushObj;
-            
-            //栈中没有对象时可直接入栈
-            if (uiStack.Count == 0)
+
+            //字典中不存在对应物体则实例化一个并写入字典，否则就用新的去刷新旧的
+            if (!uiObjectsDict.ContainsKey(baseUIPanel.UIType.Name))
             {
-                uiStack.Push(baseUIPanel);
+                var pushObj = LoadGameObject(baseUIPanel.UIType);
+                uiObjectsDict.Add(baseUIPanel.UIType.Name, baseUIPanel);
+                baseUIPanel.GO = pushObj;
+                if (baseUIPanel.GO != null)
+                {
+                    //UI创建完毕
+                    baseUIPanel.OnCreate();
+                }
             }
             else
+            {
+                var bup = uiObjectsDict[baseUIPanel.UIType.Name];
+                bup.OnRefresh(baseUIPanel);
+                baseUIPanel = bup;
+            }
+            
+            if (uiStack.Count > 0)
             {
                 //防止点击过快导致多次将同一对象入栈
                 if (uiStack.Peek().UIType.Name != baseUIPanel.UIType.Name)
@@ -63,8 +71,11 @@ namespace EasyUIFrame.Frame
                     uiStack.Push(baseUIPanel);
                 }
             }
-            //UI创建完毕
-            baseUIPanel.OnCreate();
+            else
+            {
+                //栈中没有对象时可直接入栈
+                uiStack.Push(baseUIPanel);
+            }
         }
 
         /// <summary>
@@ -74,16 +85,16 @@ namespace EasyUIFrame.Frame
         {
             if (uiStack.Count > 0)
             {
-                uiStack.Peek().OnClose();
+                uiStack.Peek().OnDisable();
                 uiStack.Peek().OnDestory();
-                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name]);
+                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name].GO.gameObject);
                 uiObjectsDict.Remove(uiStack.Peek().UIType.Name);
                 uiStack.Pop();
             }
 
             if (uiStack.Count > 0)
             {
-                uiStack.Peek().OnOpen();
+                uiStack.Peek().OnEnable();
             }
         }
 
@@ -94,9 +105,9 @@ namespace EasyUIFrame.Frame
         {
             for (int i = 0; i < uiStack.Count; i++)
             {
-                uiStack.Peek().OnClose();
+                uiStack.Peek().OnDisable();
                 uiStack.Peek().OnDestory();
-                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name]);
+                Destroy(uiObjectsDict[uiStack.Peek().UIType.Name].GO.gameObject);
                 uiObjectsDict.Remove(uiStack.Peek().UIType.Name);
                 uiStack.Pop();
             }

@@ -1,7 +1,8 @@
-﻿using EasyUIFrame.Frame;
-using EasyUIFrame.GamePlay;
+﻿using EasyUIFrame.Frame.UI;
+using EasyUIFrame.GamePlay.UI;
+using EasyUIFrame.GamePlay.UI.UIPanel;
 
-namespace EasyUIFrame
+namespace EasyUIFrame.Frame
 {
     public class GameRoot : Singleton<GameRoot>
     {

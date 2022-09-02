@@ -1,13 +1,14 @@
 ﻿using EasyUIFrame.Frame;
+using EasyUIFrame.Frame.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EasyUIFrame.GamePlay
+namespace EasyUIFrame.GamePlay.UI.UIPanel
 {
     public class SettingMenuPanel : BaseUIPanel
     {
-        public Button BackBotton;
-        public Button SaveButton;
+        private Button backBotton;
+        private Button saveButton;
         
         private static readonly string Path = "Prefab/SettingPanel";
         private static readonly string Name = "SettingPanel";
@@ -20,22 +21,22 @@ namespace EasyUIFrame.GamePlay
         public override void OnCreate()
         {
             base.OnCreate();
-            BackBotton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "BackButton");
-            SaveButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "SaveButton");
+            backBotton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "BackButton");
+            saveButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "SaveButton");
             
-            BackBotton.onClick.AddListener(BackMainMenuPanel);
-            SaveButton.onClick.AddListener(SaveAndBackMainMenuPanel);
+            backBotton.onClick.AddListener(BackMainMenuPanel);
+            saveButton.onClick.AddListener(SaveAndBackMainMenuPanel);
         }
 
         private void BackMainMenuPanel()
         {
-            UIManager.Instance.Pop();
+            Pop();
         }
 
         private void SaveAndBackMainMenuPanel()
         {
             Debug.Log("保存设置");
-            UIManager.Instance.Pop();
+            Pop();
         }
     }
 }

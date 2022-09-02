@@ -19,8 +19,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UIHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UI/UIHelper.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -35,10 +35,21 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/BaseUIPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UIHelper.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GameRoot.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Singleton.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/MainMenuPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/SettingMenuPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UIManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Singleton.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/Singleton.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/SettingMenuPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/GameRoot.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UI/UIHelper.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UI/UIManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/Frame/UI/BaseUIPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/MainMenuPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/UIPanel/MainMenuPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/UIPanel/SettingMenuPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/UIData/SettingDataScriptObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EasyUIFrame/GamePlay/UI/UIData/SettingDataScriptableObject.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2E9a7aLghlYLfQVBaBt6KXjRP77" />
@@ -86,6 +97,7 @@
       <workItem from="1662010097834" duration="13333000" />
       <workItem from="1662032324369" duration="3948000" />
       <workItem from="1662084201550" duration="8380000" />
+      <workItem from="1662103608916" duration="11944000" />
     </task>
     <servers />
   </component>
