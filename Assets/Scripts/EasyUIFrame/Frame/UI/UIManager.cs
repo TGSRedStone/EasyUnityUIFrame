@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EasyUIFrame.GamePlay.UI.UIData;
 using UnityEngine;
 
 namespace EasyUIFrame.Frame.UI
@@ -7,6 +8,8 @@ namespace EasyUIFrame.Frame.UI
     {
         //TODO: 增加多Canvas支持
         public Canvas canvas;
+        //TODO: 更优雅的管理持久化数据
+        public SettingDataScriptableObject SettingData;
 
         private Stack<BaseUIPanel> uiStack;
         private Dictionary<string, BaseUIPanel> uiObjectsDict;
@@ -15,6 +18,7 @@ namespace EasyUIFrame.Frame.UI
         {
             uiStack = new Stack<BaseUIPanel>();
             uiObjectsDict = new Dictionary<string, BaseUIPanel>();
+            SettingData = Resources.Load<SettingDataScriptableObject>("ScriptObjects/SettingData");
         }
 
         /// <summary>

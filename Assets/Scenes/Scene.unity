@@ -425,6 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 78707144}
+  SettingData: {fileID: 11400000, guid: 2c12e4b550cdcec42a42e8a799b7ec14, type: 2}
 --- !u!1 &835232876
 GameObject:
   m_ObjectHideFlags: 0

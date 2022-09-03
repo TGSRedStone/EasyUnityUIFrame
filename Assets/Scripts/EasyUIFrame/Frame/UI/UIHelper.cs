@@ -27,6 +27,13 @@ namespace EasyUIFrame.Frame
             }
         }
         
+        /// <summary>
+        /// 获取一个物体中对应名字的子物体
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="name"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T AddOrGetComponentInChild<T>(Transform go,string name) where T : Component 
         {
             var transforms = go.GetComponentsInChildren<Transform>();
