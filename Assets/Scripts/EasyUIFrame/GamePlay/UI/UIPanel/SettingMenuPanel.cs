@@ -22,18 +22,18 @@ namespace EasyUIFrame.GamePlay.UI.UIPanel
         private Slider fOVSlider;
         private Slider sFXVolumeSlider;
         
-        private static readonly string Path = "Prefab/SettingPanel";
-        private static readonly string Name = "SettingPanel";
-        private static UIType uiType = new UIType(Path, Name);
-        public SettingMenuPanel() : base(uiType)
+        private static readonly string path = "Prefab/SettingPanel";
+        private static readonly string name = "SettingPanel";
+        private static UIType uiType = new UIType(path, name);
+        public SettingMenuPanel() : base(uiType, false)
         {
-            
+
         }
 
         public override void OnCreate()
         {
             base.OnCreate();
-            settingData = UIManager.Instance.SettingData;
+            settingData = GameRoot.UIManager.SettingData;
             backBotton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "BackButton");
             saveButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "SaveButton");
             sensitivityCount = UIHelper.GetInstance().AddOrGetComponentInChild<TMP_Text>(GO, "SensitivityCount");

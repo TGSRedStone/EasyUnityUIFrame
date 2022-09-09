@@ -8,9 +8,12 @@ namespace EasyUIFrame.Frame.UI
 
         public Transform GO;
 
-        protected BaseUIPanel(UIType uiType)
+        public bool KeepActive = false;
+
+        protected BaseUIPanel(UIType uiType, bool keepActive = false)
         {
             this.UIType = uiType;
+            this.KeepActive = keepActive;
         }
 
         /// <summary>
@@ -49,21 +52,33 @@ namespace EasyUIFrame.Frame.UI
         /// UI刷新时调用
         /// </summary>
         /// <param name="baseUIPanel"></param>
-        /// <param name="float4"></param>
         public virtual void OnRefresh(BaseUIPanel baseUIPanel)
+        {
+            
+        }
+
+        /// <summary>
+        /// 每帧调用
+        /// </summary>
+        /// <param name="deltaTime"></param>
+        public virtual void OnUpdate(float deltaTime)
         {
             
         }
 
         protected void Push(BaseUIPanel baseUIPanel)
         {
-            UIManager.Instance.Push(baseUIPanel);
+            GameRoot.UIManager.Push(baseUIPanel);
         }
 
         protected void Pop()
         {
-            UIManager.Instance.Pop();
+            GameRoot.UIManager.Pop();
         }
-        
+
+        protected void PopAll()
+        {
+            GameRoot.UIManager.PopAll();
+        }
     }
 }

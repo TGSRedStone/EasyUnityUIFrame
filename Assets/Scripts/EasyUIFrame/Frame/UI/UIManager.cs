@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EasyUIFrame.Frame.UI
 {
-    public class UIManager : Singleton<UIManager>
+    public class UIManager : BaseManager
     {
         //TODO: 增加多Canvas支持
         public Canvas canvas;
@@ -14,11 +14,19 @@ namespace EasyUIFrame.Frame.UI
         private Stack<BaseUIPanel> uiStack;
         private Dictionary<string, BaseUIPanel> uiObjectsDict;
         
-        public void OnInit()
+        public override void OnInit()
         {
             uiStack = new Stack<BaseUIPanel>();
             uiObjectsDict = new Dictionary<string, BaseUIPanel>();
             SettingData = Resources.Load<SettingDataScriptableObject>("ScriptObjects/SettingData");
+        }
+
+        public override void OnUpdate(float deltaTime)
+        {
+            foreach (var baseUIPanel in uiObjectsDict)
+            {
+                baseUIPanel.Value.OnUpdate(deltaTime);
+            }
         }
 
         /// <summary>
@@ -30,7 +38,7 @@ namespace EasyUIFrame.Frame.UI
         {
             if (canvas == null)
             {
-                Debug.LogError("canvas不存在");
+                Debug.LogError("物体不存在");
                 return null;
             }
             var uiObj = Instantiate(Resources.Load<GameObject>(uiType.Path), canvas.transform).transform;
@@ -43,7 +51,7 @@ namespace EasyUIFrame.Frame.UI
         /// <param name="baseUIPanel"></param>
         public void Push(BaseUIPanel baseUIPanel)
         {
-            if (uiStack.Count > 0)
+            if (uiStack.Count > 0 && !baseUIPanel.KeepActive)
             {
                 uiStack.Peek().OnDisable();
             }

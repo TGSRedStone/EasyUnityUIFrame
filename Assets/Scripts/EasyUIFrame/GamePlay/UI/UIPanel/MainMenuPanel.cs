@@ -1,6 +1,7 @@
 ﻿using EasyUIFrame.Frame;
 using EasyUIFrame.Frame.UI;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace EasyUIFrame.GamePlay.UI.UIPanel
@@ -12,11 +13,11 @@ namespace EasyUIFrame.GamePlay.UI.UIPanel
         private Button exitButton;
         private Image backGround;
         
-        private static readonly string Path = "Prefab/MainMenuPanel";
-        private static readonly string Name = "MainMenuPanel";
-        private static UIType uiType = new UIType(Path, Name);
+        private static readonly string path = "Prefab/MainMenuPanel";
+        private static readonly string name = "MainMenuPanel";
+        private static UIType uiType = new UIType(path, name);
         
-        public MainMenuPanel() : base(uiType)
+        public MainMenuPanel() : base(uiType, false)
         {
             
         }
@@ -29,8 +30,16 @@ namespace EasyUIFrame.GamePlay.UI.UIPanel
             settingButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "SettingButton");
             exitButton = UIHelper.GetInstance().AddOrGetComponentInChild<Button>(GO, "ExitButton");
             
+            startButton.onClick.AddListener(StartGame);
             settingButton.onClick.AddListener(OpenSettingPanel);
             exitButton.onClick.AddListener(ExitMainMenuPanel);
+        }
+
+        private void StartGame()
+        {
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
+            GameRoot.UIManager.PopAll();
+            GameRoot.UIManager.Push(new GameUIPanel());
         }
 
         private void OpenSettingPanel()
